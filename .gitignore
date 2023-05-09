@@ -35,3 +35,9 @@ out/
 
 ### VS Code ###
 .vscode/
+
+
+###
+
+/http-client.private.env.json
+/**/resources/developer/application-developer.yml

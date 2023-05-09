@@ -1,0 +1,7 @@
+app:
+  spaceTradersApi:
+    baseUrl: https://api.spacetraders.io/v2
+    accessToken: ""
+spring:
+  jpa:
+    open-in-view: false
