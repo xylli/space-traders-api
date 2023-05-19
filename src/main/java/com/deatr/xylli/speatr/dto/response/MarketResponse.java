@@ -3,6 +3,7 @@ package com.deatr.xylli.speatr.dto.response;
 import com.deatr.xylli.speatr.dto.types.MarketSupplyType;
 import com.deatr.xylli.speatr.dto.types.TradeSymbol;
 import com.deatr.xylli.speatr.dto.types.TransactionType;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -10,6 +11,7 @@ import jakarta.validation.constraints.Positive;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Valid
 public record MarketResponse(
         @NotBlank
         String symbol,
@@ -25,6 +27,7 @@ public record MarketResponse(
         List<MarketTradeGood> tradeGoods
 ) {
 
+    @Valid
     public record TradeGood(
             @NotNull
             TradeSymbol symbol,
@@ -34,6 +37,7 @@ public record MarketResponse(
     ) {
     }
 
+    @Valid
     public record Transaction(
             @NotBlank
             String waypointSymbol,
@@ -54,6 +58,7 @@ public record MarketResponse(
     ) {
     }
 
+    @Valid
     public record MarketTradeGood(
             @NotBlank String symbol,
             @Positive int tradeVolume,

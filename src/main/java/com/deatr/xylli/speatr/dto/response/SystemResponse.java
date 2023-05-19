@@ -3,13 +3,14 @@ package com.deatr.xylli.speatr.dto.response;
 import com.deatr.xylli.speatr.dto.SymbolObject;
 import com.deatr.xylli.speatr.dto.types.SystemType;
 import com.deatr.xylli.speatr.dto.types.WaypointType;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
-@Validated
+@Valid
 public record SystemResponse(
         @NotBlank
         String symbol,
@@ -23,7 +24,7 @@ public record SystemResponse(
         List<SymbolObject> factions
 ) {
 
-    @Validated
+    @Valid
     public record Waypoint(
             @NotBlank
             String symbol,

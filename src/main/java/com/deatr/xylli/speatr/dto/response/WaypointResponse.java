@@ -1,14 +1,16 @@
 package com.deatr.xylli.speatr.dto.response;
 
 import com.deatr.xylli.speatr.dto.SymbolObject;
+import com.deatr.xylli.speatr.dto.data.Chart;
 import com.deatr.xylli.speatr.dto.types.WaypointTrait;
 import com.deatr.xylli.speatr.dto.types.WaypointType;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
+@Valid
 public record WaypointResponse(
         @NotBlank
         String symbol,
@@ -24,17 +26,12 @@ public record WaypointResponse(
         Chart chart
 ) {
 
-        @Validated
-        public record Trait(
-                @NotNull String name,
-                @NotNull String description,
-                @NotNull WaypointTrait symbol
-        ) {}
+    @Valid
+    public record Trait(
+            @NotNull String name,
+            @NotNull String description,
+            @NotNull WaypointTrait symbol
+    ) {
+    }
 
-        @Validated
-        public record Chart(
-                String waypointSymbol,
-                String submittedBy,
-                String submittedOn //date-time
-        ) {}
 }

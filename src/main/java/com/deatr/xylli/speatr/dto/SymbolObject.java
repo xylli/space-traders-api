@@ -1,8 +1,8 @@
 package com.deatr.xylli.speatr.dto;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
-import org.springframework.validation.annotation.Validated;
 
-@Validated
+@Valid
 public record SymbolObject(@NotBlank String symbol) {
 }

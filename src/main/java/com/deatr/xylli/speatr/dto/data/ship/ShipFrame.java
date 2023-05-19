@@ -1,9 +1,11 @@
-package com.deatr.xylli.speatr.dto.data;
+package com.deatr.xylli.speatr.dto.data.ship;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 
+@Valid
 public record ShipFrame(
         @NotNull ShipFrameType symbol,
         @NotNull String name,

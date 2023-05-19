@@ -1,17 +1,20 @@
 package com.deatr.xylli.speatr.dto.response;
 
 import com.deatr.xylli.speatr.dto.types.SystemType;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
+@Valid
 public record JumpGateResponse(
         int jumpRange,
         String factionSymbol,
         @NotNull List<ConnectedSystem> connectedSystems
 ) {
 
+    @Valid
     public record ConnectedSystem(
             @NotBlank String symbol,
             @NotBlank String sectorSymbol,

@@ -1,8 +1,10 @@
-package com.deatr.xylli.speatr.dto.data;
+package com.deatr.xylli.speatr.dto.data.ship;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 
+@Valid
 public record ShipModule(
         @NotNull ShipModuleType symbol,
         @PositiveOrZero int capacity,

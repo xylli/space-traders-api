@@ -1,14 +1,15 @@
 package com.deatr.xylli.speatr.dto.response;
 
-import com.deatr.xylli.speatr.dto.data.*;
+import com.deatr.xylli.speatr.dto.data.ship.*;
 import com.deatr.xylli.speatr.dto.types.ShipType;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
+@Valid
 public record ShipyardResponse(
         @NotBlank
         String symbol,
@@ -21,20 +22,13 @@ public record ShipyardResponse(
 
 ) {
 
+    @Valid
     public record ShipTypeObj(
             @NotNull ShipType type
     ) {
     }
 
-    public record ShipyardTransaction(
-            @NotBlank String waypointSymbol,
-            @NotBlank String shipSymbol,
-            @Positive int price,
-            @NotBlank String agentSymbol,
-            @NotNull LocalDateTime timestamp
-    ) {
-    }
-
+    @Valid
     public record ShipyardShip(
             @NotNull ShipType type,
             @NotNull String name,

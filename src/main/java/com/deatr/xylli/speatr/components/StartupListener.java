@@ -1,11 +1,16 @@
 package com.deatr.xylli.speatr.components;
 
 import com.deatr.xylli.speatr.client.AgentClient;
+import com.deatr.xylli.speatr.client.FleetClient;
 import com.deatr.xylli.speatr.client.SystemClient;
+import com.deatr.xylli.speatr.dto.data.ship.Ship;
+import com.deatr.xylli.speatr.util.ValidationUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 @Component
 @Slf4j
@@ -14,21 +19,34 @@ public class StartupListener implements CommandLineRunner {
 
 	private final AgentClient agentClient;
 	private final SystemClient systemClient;
+	private final FleetClient fleetClient;
 
 
     @Override
     public void run(String... args) throws Exception {
+/*
 		var agentResponse = agentClient.getMyAgent();
         log.info("My Agent: {}", agentResponse.data());
+*/
+
+        var myShips = fleetClient.listMyShips(20, 1);
+        String firstShipSymbol = myShips.data().stream()
+                .findFirst()
+                .map(Ship::symbol)
+                .orElseThrow(ValidationUtils.throwRequiredException());
+        log.info("My ship {}", firstShipSymbol);
+
+        var cooldown = fleetClient.getCooldown(firstShipSymbol);
+        log.info("Ship cooldown {}", cooldown);
 
 /*        var systems = systemClient.getSystems(20, 1);
-        log.info("First systems: {}", systems);*/
+        log.info("First systems: {}", systems);
 
         String systemSymbol = "X1-ZA40";
         var startingSystem = systemClient.getSystem(systemSymbol);
 
         var waypointsInSystem = systemClient.getWaypoints(20, 1, systemSymbol);
-        log.info("Waypoints: {}", waypointsInSystem);
+        log.info("Waypoints: {}", waypointsInSystem);*/
 
     }
 }

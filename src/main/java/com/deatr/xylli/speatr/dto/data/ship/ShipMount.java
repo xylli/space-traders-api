@@ -1,10 +1,12 @@
-package com.deatr.xylli.speatr.dto.data;
+package com.deatr.xylli.speatr.dto.data.ship;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 
 import java.util.List;
 
+@Valid
 public record ShipMount(
         @NotNull ShipMountType symbol,
         @NotNull String name,
