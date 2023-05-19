@@ -5,3 +5,5 @@ app:
 spring:
   jpa:
     open-in-view: false
+  main:
+    web-application-type: none

@@ -1,6 +1,6 @@
 package com.deatr.xylli.speatr.dto.types;
 
-public enum TraitType {
+public enum WaypointTrait {
     UNCHARTED,
     MARKETPLACE,
     SHIPYARD,

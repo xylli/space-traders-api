@@ -2,9 +2,10 @@ package com.deatr.xylli.speatr.client;
 
 import com.deatr.xylli.speatr.dto.DataListWrapper;
 import com.deatr.xylli.speatr.dto.DataWrapper;
-import com.deatr.xylli.speatr.dto.response.SystemResponse;
-import com.deatr.xylli.speatr.dto.response.WaypointResponse;
+import com.deatr.xylli.speatr.dto.response.*;
 import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,14 +24,38 @@ public interface SystemClient {
     @GetExchange("/systems/{systemSymbol}")
     DataWrapper<SystemResponse> getSystem(
             @PathVariable
-            String systemSymbol
+            @NotBlank String systemSymbol
     );
 
     @GetExchange("/systems/{systemSymbol}/waypoints")
     DataListWrapper<WaypointResponse> getWaypoints(
             @RequestParam @Positive @Max(20) int limit,
             @RequestParam @Positive int page,
-            @PathVariable String systemSymbol
+            @PathVariable @NotBlank String systemSymbol
+    );
+
+    @GetExchange("/systems/{systemSymbol}/waypoints/{waypointSymbol}")
+    DataWrapper<WaypointResponse> getWaypoint(
+            @PathVariable @NotBlank String systemSymbol,
+            @PathVariable @NotBlank String waypointSymbol
+    );
+
+    @GetExchange("/systems/{systemSymbol}/waypoints/{waypointSymbol}/market")
+    DataWrapper<MarketResponse> getMarket(
+            @PathVariable @NotBlank String systemSymbol,
+            @PathVariable @NotBlank String waypointSymbol
+    );
+
+    @GetExchange("/systems/{systemSymbol}/waypoints/{waypointSymbol}/shipyard")
+    DataWrapper<ShipyardResponse> getShipyard(
+            @PathVariable @NotBlank String systemSymbol,
+            @PathVariable @NotBlank String waypointSymbol
+    );
+
+    @GetExchange("/systems/{systemSymbol}/waypoints/{waypointSymbol}/jump-gate")
+    DataWrapper<JumpGateResponse> getJumpGate(
+            @PathVariable @NotBlank String systemSymbol,
+            @PathVariable @NotBlank String waypointSymbol
     );
 
 }

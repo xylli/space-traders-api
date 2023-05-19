@@ -24,7 +24,7 @@ public class StartupListener implements CommandLineRunner {
 /*        var systems = systemClient.getSystems(20, 1);
         log.info("First systems: {}", systems);*/
 
-        String systemSymbol = "X1-DF55";
+        String systemSymbol = "X1-ZA40";
         var startingSystem = systemClient.getSystem(systemSymbol);
 
         var waypointsInSystem = systemClient.getWaypoints(20, 1, systemSymbol);

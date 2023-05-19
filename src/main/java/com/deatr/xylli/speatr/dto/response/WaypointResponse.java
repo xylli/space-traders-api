@@ -1,7 +1,7 @@
 package com.deatr.xylli.speatr.dto.response;
 
 import com.deatr.xylli.speatr.dto.SymbolObject;
-import com.deatr.xylli.speatr.dto.types.TraitType;
+import com.deatr.xylli.speatr.dto.types.WaypointTrait;
 import com.deatr.xylli.speatr.dto.types.WaypointType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -28,7 +28,7 @@ public record WaypointResponse(
         public record Trait(
                 @NotNull String name,
                 @NotNull String description,
-                @NotNull TraitType symbol
+                @NotNull WaypointTrait symbol
         ) {}
 
         @Validated
