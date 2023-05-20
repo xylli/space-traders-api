@@ -1,7 +1,6 @@
-package com.deatr.xylli.speatr.dto.response;
+package com.deatr.xylli.speatr.dto.data;
 
 import com.deatr.xylli.speatr.dto.SymbolObject;
-import com.deatr.xylli.speatr.dto.data.Chart;
 import com.deatr.xylli.speatr.dto.types.WaypointTrait;
 import com.deatr.xylli.speatr.dto.types.WaypointType;
 import jakarta.validation.Valid;
@@ -11,7 +10,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 @Valid
-public record WaypointResponse(
+public record Waypoint(
         @NotBlank
         String symbol,
         @NotNull
@@ -33,5 +32,15 @@ public record WaypointResponse(
             @NotNull WaypointTrait symbol
     ) {
     }
+
+    @Valid
+    public record Orbital(
+
+    ) {}
+
+    @Valid
+    public record Faction(
+
+    ) {}
 
 }

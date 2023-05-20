@@ -5,12 +5,9 @@ import com.deatr.xylli.speatr.dto.DataWrapper;
 import com.deatr.xylli.speatr.dto.data.Cooldown;
 import com.deatr.xylli.speatr.dto.data.ship.Ship;
 import com.deatr.xylli.speatr.dto.data.ship.ShipCargo;
+import com.deatr.xylli.speatr.dto.data.ship.ShipNav;
 import com.deatr.xylli.speatr.dto.request.*;
-import com.deatr.xylli.speatr.dto.response.ChartResponse;
-import com.deatr.xylli.speatr.dto.response.OrbitResponse;
-import com.deatr.xylli.speatr.dto.response.PurchaseShipResponse;
-import com.deatr.xylli.speatr.dto.response.ShipRefineResponse;
-import com.fasterxml.jackson.databind.JsonNode;
+import com.deatr.xylli.speatr.dto.response.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -69,93 +66,92 @@ public interface FleetClient {
     );
 
     @PostExchange("/my/ships/{shipSymbol}/dock")
-    DataWrapper<JsonNode> dock(
+    DataWrapper<DockShipResponse> dock(
             @PathVariable @NotBlank String shipSymbol
     );
 
     @PostExchange("/my/ships/{shipSymbol}/survey")
-    DataWrapper<JsonNode> survey(
+    DataWrapper<SurveyResponse> survey(
             @PathVariable @NotBlank String shipSymbol
     );
 
     @PostExchange("/my/ships/{shipSymbol}/extract")
-    DataWrapper<JsonNode> extract(
+    DataWrapper<ExtractResponse> extract(
             @PathVariable @NotBlank String shipSymbol,
-            @RequestBody @NotNull JsonNode body
+            @RequestBody @NotNull ExtractRequest body
     );
 
-
     @PostExchange("/my/ships/{shipSymbol}/jettison")
-    DataWrapper<JsonNode> jettison(
+    DataWrapper<JettisonResponse> jettison(
             @PathVariable @NotBlank String shipSymbol,
-            @RequestBody @NotNull JsonNode body
+            @RequestBody @NotNull JettisonRequest body
     );
 
     @PostExchange("/my/ships/{shipSymbol}/jump")
-    DataWrapper<JsonNode> jump(
+    DataWrapper<JumpResponse> jump(
             @PathVariable @NotBlank String shipSymbol,
             @RequestBody @NotBlank JumpRequest body
     );
 
     @PostExchange("/my/ships/{shipSymbol}/navigate")
-    DataWrapper<JsonNode> navigate(
+    DataWrapper<NavigateResponse> navigate(
             @PathVariable @NotBlank String shipSymbol,
             @RequestBody @NotBlank NavigateRequest body
     );
 
     @PatchExchange("/my/ships/{shipSymbol}/nav")
-    DataWrapper<JsonNode> updateNav(
+    DataWrapper<ShipNav> updateNav(
             @PathVariable @NotBlank String shipSymbol,
             @RequestBody @NotBlank UpdateNavRequest body
     );
 
     @GetExchange("/my/ships/{shipSymbol}/nav")
-    DataWrapper<JsonNode> getNav(
+    DataWrapper<ShipNav> getNav(
             @PathVariable @NotBlank String shipSymbol
     );
 
     @PostExchange("/my/ships/{shipSymbol}/warp")
-    DataWrapper<JsonNode> warp(
+    DataWrapper<WarpResponse> warp(
             @PathVariable @NotBlank String shipSymbol,
             @RequestBody @NotBlank WarpRequest body
     );
 
     @PostExchange("/my/ships/{shipSymbol}/sell")
-    DataWrapper<JsonNode> sell(
+    DataWrapper<SellCargoResponse> sell(
             @PathVariable @NotBlank String shipSymbol,
-            @RequestBody @NotBlank JsonNode body
+            @RequestBody @NotBlank SellCargoRequest body
     );
 
     @PostExchange("/my/ships/{shipSymbol}/scan/systems")
-    DataWrapper<JsonNode> scanSystems(
+    DataWrapper<ScanSystemsResponse> scanSystems(
             @PathVariable @NotBlank String shipSymbol
     );
 
     @PostExchange("/my/ships/{shipSymbol}/scan/waypoints")
-    DataWrapper<JsonNode> scanWaypoints(
+    DataWrapper<ScanWaypointsResponse> scanWaypoints(
             @PathVariable @NotBlank String shipSymbol
     );
 
     @PostExchange("/my/ships/{shipSymbol}/scan/ships")
-    DataWrapper<JsonNode> scanShips(
+    DataWrapper<ScanShipsResponse> scanShips(
             @PathVariable @NotBlank String shipSymbol
     );
 
     @PostExchange("/my/ships/{shipSymbol}/scan/refuel")
-    DataWrapper<JsonNode> refuel(
+    DataWrapper<RefuelResponse> refuel(
             @PathVariable @NotBlank String shipSymbol
     );
 
     @PostExchange("/my/ships/{shipSymbol}/purchase")
-    DataWrapper<JsonNode> purchaseCargo(
+    DataWrapper<PurchaseCargoResponse> purchaseCargo(
             @PathVariable @NotBlank String shipSymbol,
-            @RequestBody @NotBlank JsonNode body
+            @RequestBody @NotBlank PurchaseCargoRequest body
     );
 
     @PostExchange("/my/ships/{shipSymbol}/transfer")
-    DataWrapper<JsonNode> transferCargo(
+    DataWrapper<TransferCargoResponse> transferCargo(
             @PathVariable @NotBlank String shipSymbol,
-            @RequestBody @NotBlank JsonNode body
+            @RequestBody @NotBlank TransferCargoRequest body
     );
 
 

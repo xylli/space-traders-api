@@ -1,10 +1,10 @@
-package com.deatr.xylli.speatr.dto.response;
+package com.deatr.xylli.speatr.dto.data;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 
 @Valid
-public record AgentResponse(
+public record Agent(
         @NotBlank
         String accountId,
         @NotBlank

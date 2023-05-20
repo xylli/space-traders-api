@@ -2,10 +2,11 @@ package com.deatr.xylli.speatr.client;
 
 import com.deatr.xylli.speatr.dto.DataListWrapper;
 import com.deatr.xylli.speatr.dto.DataWrapper;
+import com.deatr.xylli.speatr.dto.data.Waypoint;
 import com.deatr.xylli.speatr.dto.response.*;
+import com.deatr.xylli.speatr.dto.data.System;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,26 +17,26 @@ import org.springframework.web.service.annotation.GetExchange;
 public interface SystemClient {
 
     @GetExchange("/systems")
-    DataListWrapper<SystemResponse> getSystems(
+    DataListWrapper<System> getSystems(
             @RequestParam @Positive @Max(20) int limit,
             @RequestParam @Positive int page
     );
 
     @GetExchange("/systems/{systemSymbol}")
-    DataWrapper<SystemResponse> getSystem(
+    DataWrapper<System> getSystem(
             @PathVariable
             @NotBlank String systemSymbol
     );
 
     @GetExchange("/systems/{systemSymbol}/waypoints")
-    DataListWrapper<WaypointResponse> getWaypoints(
+    DataListWrapper<Waypoint> getWaypoints(
             @RequestParam @Positive @Max(20) int limit,
             @RequestParam @Positive int page,
             @PathVariable @NotBlank String systemSymbol
     );
 
     @GetExchange("/systems/{systemSymbol}/waypoints/{waypointSymbol}")
-    DataWrapper<WaypointResponse> getWaypoint(
+    DataWrapper<Waypoint> getWaypoint(
             @PathVariable @NotBlank String systemSymbol,
             @PathVariable @NotBlank String waypointSymbol
     );

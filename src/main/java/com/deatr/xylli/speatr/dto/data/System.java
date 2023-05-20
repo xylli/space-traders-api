@@ -1,4 +1,4 @@
-package com.deatr.xylli.speatr.dto.response;
+package com.deatr.xylli.speatr.dto.data;
 
 import com.deatr.xylli.speatr.dto.SymbolObject;
 import com.deatr.xylli.speatr.dto.types.SystemType;
@@ -6,12 +6,11 @@ import com.deatr.xylli.speatr.dto.types.WaypointType;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
 @Valid
-public record SystemResponse(
+public record System(
         @NotBlank
         String symbol,
         @NotBlank
