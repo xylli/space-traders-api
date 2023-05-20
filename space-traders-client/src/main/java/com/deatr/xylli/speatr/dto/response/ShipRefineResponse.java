@@ -1,6 +1,7 @@
 package com.deatr.xylli.speatr.dto.response;
 
 import com.deatr.xylli.speatr.dto.data.Cooldown;
+import com.deatr.xylli.speatr.dto.data.RefineItem;
 import com.deatr.xylli.speatr.dto.data.ship.ShipCargo;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -15,10 +16,4 @@ public record ShipRefineResponse(
         @NotNull List<RefineItem> consumed
 ) {
 
-    public record RefineItem(
-            String tradeSymbol,
-            int units
-    ) {
-
-    }
 }

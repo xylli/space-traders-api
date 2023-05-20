@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="SpeatrApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
     <option name="ACTIVE_PROFILES" value="local" />
-    <module name="space-traders-api.main" />
+    <module name="space-traders-api.space-traders-service.main" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.deatr.xylli.speatr.SpeatrApplication" />
     <method v="2">
       <option name="Make" enabled="true" />
