@@ -27,6 +27,9 @@ public interface SystemClient {
             @PathVariable
             @NotBlank String systemSymbol
     );
+    default DataListWrapper<Waypoint> getFirstWaypoints(String systemSymbol) {
+        return getWaypoints(20, 1, systemSymbol);
+    }
 
     @GetExchange("/systems/{systemSymbol}/waypoints")
     DataListWrapper<Waypoint> getWaypoints(

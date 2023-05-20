@@ -26,7 +26,15 @@ public class AppConfig {
     private final AppProperties appProperties;
 
     @Bean
-    public WebClient spaceTradersApiClient() {
+    public WebClient spaceTradersAuthenticatedClient() {
+        return WebClient.builder()
+                .baseUrl(appProperties.spaceTradersApi().baseUrl())
+                .defaultHeaders(this::setAuthHeaders)
+                .defaultStatusHandler(AppConfig::isNoContentStatus, clientResponse -> Mono.error(new NoContentException()))
+                .build();
+    }
+
+    private WebClient createSpaceTradersRegisterClient() {
         return WebClient.builder()
                 .baseUrl(appProperties.spaceTradersApi().baseUrl())
                 .defaultHeaders(this::setDefaultHeaders)
@@ -38,10 +46,14 @@ public class AppConfig {
         return httpStatusCode.equals(HttpStatus.NO_CONTENT);
     }
 
+    private void setAuthHeaders(HttpHeaders httpHeaders) {
+        setDefaultHeaders(httpHeaders);
+        httpHeaders.setBearerAuth(appProperties.spaceTradersApi().accessToken());
+    }
+
     private void setDefaultHeaders(HttpHeaders httpHeaders) {
         httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-        httpHeaders.setBearerAuth(appProperties.spaceTradersApi().accessToken());
     }
 
     @Bean
@@ -67,6 +79,12 @@ public class AppConfig {
     @Bean
     public FleetClient fleetClient(WebClient spaceTradersApiClient) {
         return setupProxyClient(spaceTradersApiClient, FleetClient.class);
+    }
+
+    @Bean
+    public RegisterAgentClient registerAgentClient() {
+        WebClient webClient = createSpaceTradersRegisterClient();
+        return setupProxyClient(webClient, RegisterAgentClient.class);
     }
 
     private static <T> T setupProxyClient(WebClient spaceTradersApiClient, Class<T> clazz) {

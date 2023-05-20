@@ -1,4 +1,4 @@
-package com.deatr.xylli.speatr.dto.response;
+package com.deatr.xylli.speatr.dto.data;
 
 import com.deatr.xylli.speatr.dto.types.ContractType;
 import jakarta.validation.Valid;
@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Valid
-public record ContractResponse(
+public record Contract(
         @NotBlank String id,
         @NotBlank String factionSymbol,
         @NotNull ContractType type,

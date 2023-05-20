@@ -33,14 +33,4 @@ public record Waypoint(
     ) {
     }
 
-    @Valid
-    public record Orbital(
-
-    ) {}
-
-    @Valid
-    public record Faction(
-
-    ) {}
-
 }

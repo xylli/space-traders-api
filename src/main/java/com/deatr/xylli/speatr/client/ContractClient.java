@@ -4,7 +4,7 @@ import com.deatr.xylli.speatr.dto.DataListWrapper;
 import com.deatr.xylli.speatr.dto.DataWrapper;
 import com.deatr.xylli.speatr.dto.request.DeliverContractRequest;
 import com.deatr.xylli.speatr.dto.response.AcceptedContractResponse;
-import com.deatr.xylli.speatr.dto.response.ContractResponse;
+import com.deatr.xylli.speatr.dto.data.Contract;
 import com.deatr.xylli.speatr.dto.response.DeliverContractResponse;
 import com.deatr.xylli.speatr.dto.response.FulfilledContractResponse;
 import jakarta.validation.constraints.Max;
@@ -19,14 +19,18 @@ import org.springframework.web.service.annotation.PostExchange;
 @Validated
 public interface ContractClient {
 
+    default DataListWrapper<Contract> getMyFirstContracts() {
+        return getMyContracts(20, 1);
+    }
+
     @GetExchange("/my/contracts")
-    DataListWrapper<ContractResponse> getMyContracts(
+    DataListWrapper<Contract> getMyContracts(
             @RequestParam @Positive @Max(20) int limit,
             @RequestParam @Positive int page
     );
 
     @GetExchange("/my/contracts/{contractId}")
-    DataWrapper<ContractResponse> getContract(
+    DataWrapper<Contract> getContract(
             @PathVariable String contractId
     );
     @PostExchange("/my/contracts/{contractId}/accept")

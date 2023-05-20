@@ -23,8 +23,12 @@ import org.springframework.web.service.annotation.PostExchange;
 @Validated
 public interface FleetClient {
 
+    default DataListWrapper<Ship> getMyFirstShips() {
+        return getMyShips(20, 1);
+    }
+
     @GetExchange("/my/ships")
-    DataListWrapper<Ship> listMyShips(
+    DataListWrapper<Ship> getMyShips(
             @RequestParam @Positive @Max(20) int limit,
             @RequestParam @Positive int page
     );

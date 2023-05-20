@@ -1,6 +1,7 @@
 package com.deatr.xylli.speatr.components;
 
 import com.deatr.xylli.speatr.client.AgentClient;
+import com.deatr.xylli.speatr.client.ContractClient;
 import com.deatr.xylli.speatr.client.FleetClient;
 import com.deatr.xylli.speatr.client.SystemClient;
 import com.deatr.xylli.speatr.dto.data.ship.Ship;
@@ -10,8 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-
 @Component
 @Slf4j
 @RequiredArgsConstructor
@@ -20,6 +19,7 @@ public class StartupListener implements CommandLineRunner {
 	private final AgentClient agentClient;
 	private final SystemClient systemClient;
 	private final FleetClient fleetClient;
+	private final ContractClient contractClient;
 
 
     @Override
@@ -29,15 +29,20 @@ public class StartupListener implements CommandLineRunner {
         log.info("My Agent: {}", agentResponse.data());
 */
 
-        var myShips = fleetClient.listMyShips(20, 1);
+        var myShips = fleetClient.getMyFirstShips();
         String firstShipSymbol = myShips.data().stream()
                 .findFirst()
                 .map(Ship::symbol)
                 .orElseThrow(ValidationUtils.throwRequiredException());
         log.info("My ship {}", firstShipSymbol);
 
+        var contracts = contractClient.getMyFirstContracts();
+        log.info("My contracts {}", contracts);
+
+/*
         var cooldown = fleetClient.getCooldown(firstShipSymbol);
         log.info("Ship cooldown {}", cooldown);
+*/
 
 /*        var systems = systemClient.getSystems(20, 1);
         log.info("First systems: {}", systems);

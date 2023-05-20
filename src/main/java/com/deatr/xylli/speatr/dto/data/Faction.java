@@ -1,4 +1,4 @@
-package com.deatr.xylli.speatr.dto.response;
+package com.deatr.xylli.speatr.dto.data;
 
 import com.deatr.xylli.speatr.dto.types.FactionTraitType;
 import jakarta.validation.Valid;
@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 @Valid
-public record FactionResponse(
+public record Faction(
         @NotBlank String symbol,
         @NotBlank String name,
         @NotBlank String description,
