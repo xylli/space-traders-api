@@ -1,25 +1,27 @@
 package com.deatr.xylli.speatr.components;
 
 import com.deatr.xylli.speatr.client.AgentClient;
-import com.deatr.xylli.speatr.client.ContractClient;
 import com.deatr.xylli.speatr.client.FleetClient;
 import com.deatr.xylli.speatr.client.SystemClient;
-import com.deatr.xylli.speatr.dto.data.ship.Ship;
-import com.deatr.xylli.speatr.util.ValidationUtils;
+import com.deatr.xylli.speatr.service.ContractService;
+import com.deatr.xylli.speatr.service.SystemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import static com.deatr.xylli.speatr.util.CommonUtils.prettyPrint;
 
 @Component
 @Slf4j
 @RequiredArgsConstructor
 public class StartupListener implements CommandLineRunner {
 
-	private final AgentClient agentClient;
-	private final SystemClient systemClient;
-	private final FleetClient fleetClient;
-	private final ContractClient contractClient;
+    private final AgentClient agentClient;
+    private final SystemClient systemClient;
+    private final FleetClient fleetClient;
+    private final ContractService contractService;
+    private final SystemService systemService;
 
 
     @Override
@@ -29,15 +31,20 @@ public class StartupListener implements CommandLineRunner {
         log.info("My Agent: {}", agentResponse.data());
 */
 
-        var myShips = fleetClient.getMyFirstShips();
-        String firstShipSymbol = myShips.data().stream()
-                .findFirst()
-                .map(Ship::symbol)
-                .orElseThrow(ValidationUtils.throwRequiredException());
-        log.info("My ship {}", firstShipSymbol);
 
-        var contracts = contractClient.getMyFirstContracts();
-        log.info("My contracts {}", contracts);
+        var myShip = fleetClient.getMyFirstShips().requireFirst();
+        String firstShipSymbol = myShip.symbol();
+        log.info("My ship {}", firstShipSymbol);
+/*
+        var firstContract = contractService.getMyFirstContracts().requireFirst();
+        log.info("My contract {}", firstContract);
+
+        contractService.acceptContract(firstContract.id());
+*/
+
+        var waypoints = systemService.getResourceWaypoints(myShip.nav().systemSymbol());
+
+        log.info("waypoints {}", prettyPrint(waypoints));
 
 /*
         var cooldown = fleetClient.getCooldown(firstShipSymbol);

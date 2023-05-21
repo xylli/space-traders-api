@@ -1,7 +1,9 @@
 package com.deatr.xylli.speatr.config;
 
 import com.deatr.xylli.speatr.client.*;
+import com.deatr.xylli.speatr.dto.error.ErrorResponse;
 import com.deatr.xylli.speatr.exception.NoContentException;
+import com.deatr.xylli.speatr.exception.SpaceTradersApiException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -27,19 +29,27 @@ public class AppConfig {
 
     @Bean
     public WebClient spaceTradersAuthenticatedClient() {
-        return WebClient.builder()
-                .baseUrl(appProperties.spaceTradersApi().baseUrl())
+        return startBasicSpaceTradersClient()
                 .defaultHeaders(this::setAuthHeaders)
-                .defaultStatusHandler(AppConfig::isNoContentStatus, clientResponse -> Mono.error(new NoContentException()))
                 .build();
     }
 
     private WebClient createSpaceTradersRegisterClient() {
+        return startBasicSpaceTradersClient()
+                .defaultHeaders(this::setDefaultHeaders)
+                .build();
+    }
+
+    private WebClient.Builder startBasicSpaceTradersClient() {
         return WebClient.builder()
                 .baseUrl(appProperties.spaceTradersApi().baseUrl())
-                .defaultHeaders(this::setDefaultHeaders)
                 .defaultStatusHandler(AppConfig::isNoContentStatus, clientResponse -> Mono.error(new NoContentException()))
-                .build();
+                .defaultStatusHandler(
+                        HttpStatusCode::is4xxClientError,
+                        clientResponse -> clientResponse.bodyToMono(ErrorResponse.class)
+                                .flatMap(errorResponse -> Mono.error(new SpaceTradersApiException(errorResponse)))
+                )
+                ;
     }
 
     private static boolean isNoContentStatus(HttpStatusCode httpStatusCode) {
