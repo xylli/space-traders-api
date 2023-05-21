@@ -20,16 +20,19 @@ import org.springframework.web.service.annotation.GetExchange;
 import org.springframework.web.service.annotation.PatchExchange;
 import org.springframework.web.service.annotation.PostExchange;
 
+import static com.deatr.xylli.speatr.util.ApiConstants.FIRST_PAGE;
+import static com.deatr.xylli.speatr.util.ApiConstants.LIST_REQUEST_LIMIT;
+
 @Validated
 public interface FleetClient {
 
     default DataListWrapper<Ship> getMyFirstShips() {
-        return getMyShips(20, 1);
+        return getMyShips(LIST_REQUEST_LIMIT, FIRST_PAGE);
     }
 
     @GetExchange("/my/ships")
     DataListWrapper<Ship> getMyShips(
-            @RequestParam @Positive @Max(20) int limit,
+            @RequestParam @Positive @Max(LIST_REQUEST_LIMIT) int limit,
             @RequestParam @Positive int page
     );
 

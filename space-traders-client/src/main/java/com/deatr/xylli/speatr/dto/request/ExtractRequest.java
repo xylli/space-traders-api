@@ -7,5 +7,5 @@ import jakarta.validation.constraints.NotNull;
 @Valid
 public record ExtractRequest(
         @NotNull Survey survey
-        ) {
+) {
 }

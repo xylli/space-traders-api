@@ -9,8 +9,8 @@ repositories {
     mavenCentral()
 }
 
-java.sourceCompatibility = JavaVersion.VERSION_17
-java.targetCompatibility = JavaVersion.VERSION_17
+java.sourceCompatibility = JavaVersion.VERSION_20
+java.targetCompatibility = JavaVersion.VERSION_20
 
 tasks.spotbugsMain {
     reports.create("html") {

@@ -1,4 +1,4 @@
-package com.deatr.xylli.speatr.dto.response;
+package com.deatr.xylli.speatr.dto.data;
 
 import com.deatr.xylli.speatr.dto.types.MarketSupplyType;
 import com.deatr.xylli.speatr.dto.types.TradeSymbol;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Valid
-public record MarketResponse(
+public record Market(
         @NotBlank
         String symbol,
         @NotNull

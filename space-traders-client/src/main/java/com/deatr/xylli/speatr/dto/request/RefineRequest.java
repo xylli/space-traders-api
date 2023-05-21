@@ -5,5 +5,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 @Valid
-public record RefineRequest(@NotNull RefineProduceType produce) {
+public record RefineRequest(
+        @NotNull RefineProduceType produce
+) {
 }

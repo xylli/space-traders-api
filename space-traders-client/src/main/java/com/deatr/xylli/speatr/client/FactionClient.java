@@ -10,16 +10,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.service.annotation.GetExchange;
 
+import static com.deatr.xylli.speatr.util.ApiConstants.FIRST_PAGE;
+import static com.deatr.xylli.speatr.util.ApiConstants.LIST_REQUEST_LIMIT;
+
 @Validated
 public interface FactionClient {
 
     default DataListWrapper<Faction> getFirstFactions() {
-        return getFactions(20, 1);
+        return getFactions(LIST_REQUEST_LIMIT, FIRST_PAGE);
     }
 
     @GetExchange("/factions")
     DataListWrapper<Faction> getFactions(
-            @RequestParam @Positive @Max(20) int limit,
+            @RequestParam @Positive @Max(LIST_REQUEST_LIMIT) int limit,
             @RequestParam @Positive int page
     );
 

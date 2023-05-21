@@ -1,4 +1,4 @@
-package com.deatr.xylli.speatr.dto.response;
+package com.deatr.xylli.speatr.dto.data;
 
 import com.deatr.xylli.speatr.dto.data.ship.*;
 import com.deatr.xylli.speatr.dto.types.ShipType;
@@ -10,7 +10,7 @@ import jakarta.validation.constraints.Positive;
 import java.util.List;
 
 @Valid
-public record ShipyardResponse(
+public record Shipyard(
         @NotBlank
         String symbol,
         @NotNull

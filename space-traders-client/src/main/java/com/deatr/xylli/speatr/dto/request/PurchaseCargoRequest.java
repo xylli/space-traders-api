@@ -7,5 +7,5 @@ import jakarta.validation.constraints.NotNull;
 public record PurchaseCargoRequest(
         @NotNull String symbol,
         int units
-        ) {
+) {
 }

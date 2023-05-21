@@ -31,6 +31,19 @@ public record Waypoint(
             @NotNull String description,
             @NotNull WaypointTrait symbol
     ) {
+
+        public boolean isTrait(WaypointTrait trait) {
+            return this.symbol.equals(trait);
+        }
+    }
+
+    public boolean isType(WaypointType type) {
+        return this.type.equals(type);
+    }
+
+    public boolean hasTrait(WaypointTrait trait) {
+        return this.traits.stream()
+                .anyMatch(it -> it.isTrait(trait));
     }
 
 }
