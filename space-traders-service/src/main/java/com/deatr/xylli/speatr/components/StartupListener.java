@@ -1,9 +1,10 @@
 package com.deatr.xylli.speatr.components;
 
 import com.deatr.xylli.speatr.client.AgentClient;
-import com.deatr.xylli.speatr.client.FleetClient;
+import com.deatr.xylli.speatr.client.RegisterAgentClient;
 import com.deatr.xylli.speatr.client.SystemClient;
 import com.deatr.xylli.speatr.service.ContractService;
+import com.deatr.xylli.speatr.service.FleetService;
 import com.deatr.xylli.speatr.service.SystemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +20,8 @@ public class StartupListener implements CommandLineRunner {
 
     private final AgentClient agentClient;
     private final SystemClient systemClient;
-    private final FleetClient fleetClient;
+    private final RegisterAgentClient registerAgentClient;
+    private final FleetService fleetService;
     private final ContractService contractService;
     private final SystemService systemService;
 
@@ -27,12 +29,22 @@ public class StartupListener implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 /*
+        var response = registerAgentClient.registerNewAgent(new RegisterNewAgentRequest(
+                StartingFaction.COSMIC,
+                "XYLLI-2",
+                null
+        ));
+        var token = response.data().token();
+        log.info("token {}", token);
+*/
+
+/*
 		var agentResponse = agentClient.getMyAgent();
         log.info("My Agent: {}", agentResponse.data());
 */
 
 
-        var myShip = fleetClient.getMyFirstShips().requireFirst();
+        var myShip = fleetService.getFirstShip();
         String firstShipSymbol = myShip.symbol();
         log.info("My ship {}", firstShipSymbol);
 /*
@@ -45,6 +57,9 @@ public class StartupListener implements CommandLineRunner {
         var waypoints = systemService.getResourceWaypoints(myShip.nav().systemSymbol());
 
         log.info("waypoints {}", prettyPrint(waypoints));
+
+        var firstWaypoint = waypoints.stream().findFirst();
+        firstWaypoint.ifPresent(waypoint -> fleetService.navigateTo(myShip, waypoint));
 
 /*
         var cooldown = fleetClient.getCooldown(firstShipSymbol);

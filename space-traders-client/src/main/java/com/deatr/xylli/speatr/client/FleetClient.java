@@ -97,19 +97,19 @@ public interface FleetClient {
     @PostExchange("/my/ships/{shipSymbol}/jump")
     DataWrapper<JumpResponse> jump(
             @PathVariable @NotBlank String shipSymbol,
-            @RequestBody @NotBlank JumpRequest body
+            @RequestBody @NotNull JumpRequest body
     );
 
     @PostExchange("/my/ships/{shipSymbol}/navigate")
     DataWrapper<NavigateResponse> navigate(
             @PathVariable @NotBlank String shipSymbol,
-            @RequestBody @NotBlank NavigateRequest body
+            @RequestBody @NotNull NavigateRequest body
     );
 
     @PatchExchange("/my/ships/{shipSymbol}/nav")
     DataWrapper<ShipNav> updateNav(
             @PathVariable @NotBlank String shipSymbol,
-            @RequestBody @NotBlank UpdateNavRequest body
+            @RequestBody @NotNull UpdateNavRequest body
     );
 
     @GetExchange("/my/ships/{shipSymbol}/nav")
@@ -120,13 +120,13 @@ public interface FleetClient {
     @PostExchange("/my/ships/{shipSymbol}/warp")
     DataWrapper<WarpResponse> warp(
             @PathVariable @NotBlank String shipSymbol,
-            @RequestBody @NotBlank WarpRequest body
+            @RequestBody @NotNull WarpRequest body
     );
 
     @PostExchange("/my/ships/{shipSymbol}/sell")
     DataWrapper<SellCargoResponse> sell(
             @PathVariable @NotBlank String shipSymbol,
-            @RequestBody @NotBlank SellCargoRequest body
+            @RequestBody @NotNull SellCargoRequest body
     );
 
     @PostExchange("/my/ships/{shipSymbol}/scan/systems")
@@ -152,13 +152,13 @@ public interface FleetClient {
     @PostExchange("/my/ships/{shipSymbol}/purchase")
     DataWrapper<PurchaseCargoResponse> purchaseCargo(
             @PathVariable @NotBlank String shipSymbol,
-            @RequestBody @NotBlank PurchaseCargoRequest body
+            @RequestBody @NotNull PurchaseCargoRequest body
     );
 
     @PostExchange("/my/ships/{shipSymbol}/transfer")
     DataWrapper<TransferCargoResponse> transferCargo(
             @PathVariable @NotBlank String shipSymbol,
-            @RequestBody @NotBlank TransferCargoRequest body
+            @RequestBody @NotNull TransferCargoRequest body
     );
 
 
