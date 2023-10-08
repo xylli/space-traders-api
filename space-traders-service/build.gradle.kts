@@ -1,11 +1,11 @@
 plugins {
-	id("com.deatr.xylli.spring-conventions")
+	id("xylli.spring-conventions")
 
-	id("org.graalvm.buildtools.native") version "0.9.20"
+	id("org.graalvm.buildtools.native") version "0.9.27"
 }
 
 group = "com.deatr.xylli"
-version = "0.0.1-SNAPSHOT"
+version = "0.0.2-SNAPSHOT"
 
 
 dependencies {

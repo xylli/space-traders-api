@@ -1,6 +1,6 @@
 
 plugins {
-    id("com.deatr.xylli.spring-conventions")
+    id("xylli.spring-conventions")
 }
 
 

@@ -3,7 +3,7 @@ import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.withType
 
 plugins {
-    id("com.deatr.xylli.java-conventions")
+    id("xylli.java-conventions")
     id("org.springframework.boot")
 }
 
