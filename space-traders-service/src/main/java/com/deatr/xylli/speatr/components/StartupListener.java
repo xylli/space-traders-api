@@ -3,6 +3,7 @@ package com.deatr.xylli.speatr.components;
 import com.deatr.xylli.speatr.client.AgentClient;
 import com.deatr.xylli.speatr.client.MetaClient;
 import com.deatr.xylli.speatr.client.SystemClient;
+import com.deatr.xylli.speatr.config.AppProperties;
 import com.deatr.xylli.speatr.service.ContractService;
 import com.deatr.xylli.speatr.service.FleetService;
 import com.deatr.xylli.speatr.service.SystemService;
@@ -18,6 +19,7 @@ import static com.deatr.xylli.speatr.util.CommonUtils.prettyPrint;
 @RequiredArgsConstructor
 public class StartupListener implements CommandLineRunner {
 
+    private final AppProperties appProperties;
     private final AgentClient agentClient;
     private final SystemClient systemClient;
     private final MetaClient metaClient;
@@ -28,8 +30,11 @@ public class StartupListener implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
-        log.info("Status: {}", prettyPrint(metaClient.status()));
+        var status = metaClient.status();
+        if (!status.version().equals(appProperties.spaceTradersApi().registeredVersion())) {
+            log.warn("Registered api version does not match current api version");
+        }
+        log.info("Status Message: {}", status.status());
 
 /*
         var response = registerAgentClient.registerNewAgent(new RegisterNewAgentRequest(

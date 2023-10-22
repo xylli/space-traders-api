@@ -2,6 +2,7 @@ app:
   spaceTradersApi:
     baseUrl: https://api.spacetraders.io/v2
     accessToken: ""
+    registeredVersion: "v2"
 spring:
   jpa:
     open-in-view: false

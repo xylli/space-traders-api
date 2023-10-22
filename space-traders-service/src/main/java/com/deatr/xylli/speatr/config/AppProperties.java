@@ -11,8 +11,8 @@ public record AppProperties(SpaceTradersApi spaceTradersApi) {
     @Validated
     public record SpaceTradersApi(
             String baseUrl,
-            @NotBlank
-            String accessToken
+            @NotBlank String accessToken,
+            @NotBlank String registeredVersion
     ){
     }
 }
