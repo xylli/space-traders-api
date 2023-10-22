@@ -1,7 +1,7 @@
 package com.deatr.xylli.speatr.components;
 
 import com.deatr.xylli.speatr.client.AgentClient;
-import com.deatr.xylli.speatr.client.RegisterAgentClient;
+import com.deatr.xylli.speatr.client.MetaClient;
 import com.deatr.xylli.speatr.client.SystemClient;
 import com.deatr.xylli.speatr.service.ContractService;
 import com.deatr.xylli.speatr.service.FleetService;
@@ -20,7 +20,7 @@ public class StartupListener implements CommandLineRunner {
 
     private final AgentClient agentClient;
     private final SystemClient systemClient;
-    private final RegisterAgentClient registerAgentClient;
+    private final MetaClient metaClient;
     private final FleetService fleetService;
     private final ContractService contractService;
     private final SystemService systemService;
@@ -28,6 +28,9 @@ public class StartupListener implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
+        log.info("Status: {}", prettyPrint(metaClient.status()));
+
 /*
         var response = registerAgentClient.registerNewAgent(new RegisterNewAgentRequest(
                 StartingFaction.COSMIC,

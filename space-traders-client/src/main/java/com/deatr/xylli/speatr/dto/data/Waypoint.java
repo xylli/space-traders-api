@@ -20,6 +20,7 @@ public record Waypoint(
         int x,
         int y,
         List<SymbolObject> orbitals,
+        String orbits,
         SymbolObject faction,
         List<Trait> traits,
         Chart chart

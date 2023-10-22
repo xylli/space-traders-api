@@ -8,6 +8,7 @@ import com.deatr.xylli.speatr.dto.data.ship.ShipCargo;
 import com.deatr.xylli.speatr.dto.data.ship.ShipNav;
 import com.deatr.xylli.speatr.dto.request.*;
 import com.deatr.xylli.speatr.dto.response.*;
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -84,8 +85,13 @@ public interface FleetClient {
 
     @PostExchange("/my/ships/{shipSymbol}/extract")
     DataWrapper<ExtractResponse> extract(
+            @PathVariable @NotBlank String shipSymbol
+    );
+
+    @PostExchange("/my/ships/{shipSymbol}/extract/survey")
+    DataWrapper<ExtractResponse> extractSurvey(
             @PathVariable @NotBlank String shipSymbol,
-            @RequestBody @NotNull ExtractRequest body
+            @RequestBody @NotNull ExtractSurveyRequest body
     );
 
     @PostExchange("/my/ships/{shipSymbol}/jettison")
@@ -146,7 +152,8 @@ public interface FleetClient {
 
     @PostExchange("/my/ships/{shipSymbol}/scan/refuel")
     DataWrapper<RefuelResponse> refuel(
-            @PathVariable @NotBlank String shipSymbol
+            @PathVariable @NotBlank String shipSymbol,
+            @Nullable @RequestBody RefuelRequest body
     );
 
     @PostExchange("/my/ships/{shipSymbol}/purchase")

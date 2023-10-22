@@ -1,24 +1,19 @@
-package com.deatr.xylli.speatr.dto.data;
+package com.deatr.xylli.speatr.dto.request;
 
-import jakarta.validation.Valid;
+import com.deatr.xylli.speatr.dto.SymbolObject;
+import com.deatr.xylli.speatr.dto.data.DepositSize;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Valid
-public record Survey(
+public record ExtractSurveyRequest(
         @NotBlank String signature,
         @NotBlank String symbol,
-        @NotNull List<SurveyDeposit> deposits,
+        @NotEmpty List<@NotNull SymbolObject> deposits,
         @NotNull LocalDateTime expiration,
         @NotNull DepositSize size
 ) {
-    @Valid
-    public record SurveyDeposit(
-            @NotNull String symbol
-    ) {
-    }
-
 }

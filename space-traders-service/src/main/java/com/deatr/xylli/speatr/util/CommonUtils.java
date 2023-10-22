@@ -1,6 +1,5 @@
 package com.deatr.xylli.speatr.util;
 
-import com.deatr.xylli.speatr.filters.WaypointStreamFilter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +12,10 @@ import java.util.stream.Stream;
 @Slf4j
 public final class CommonUtils {
     private static final ObjectMapper MAPPER = new ObjectMapper();
+
+    static {
+        MAPPER.findAndRegisterModules();
+    }
 
     private CommonUtils() {
     }

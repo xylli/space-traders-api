@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 public record ShipNavRoute(
     @NotNull ShipNavRouteWaypoint destination,
-    @NotNull ShipNavRouteWaypoint departure,
+    @NotNull ShipNavRouteWaypoint origin,
     @NotNull LocalDateTime departureTime,
     @NotNull LocalDateTime arrival
 ) {

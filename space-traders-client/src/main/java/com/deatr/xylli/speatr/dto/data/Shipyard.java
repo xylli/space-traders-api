@@ -38,7 +38,12 @@ public record Shipyard(
             @NotNull ShipReactor reactor,
             @NotNull ShipEngine engine,
             @NotNull List<ShipModule> modules,
-            @NotNull List<ShipMount> mounts
+            @NotNull List<ShipMount> mounts,
+            @NotNull ShipyardCrew crew
     ) {
+    }
+
+    public record ShipyardCrew(@Positive int required, @Positive int capacity) {
+
     }
 }

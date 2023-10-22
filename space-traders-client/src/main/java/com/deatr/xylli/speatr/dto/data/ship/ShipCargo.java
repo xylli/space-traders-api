@@ -10,6 +10,6 @@ import java.util.List;
 public record ShipCargo(
         @PositiveOrZero int capacity,
         @PositiveOrZero int units,
-        @NotNull List<ShipCargoItem> inventory
+        @NotNull List<@NotNull ShipCargoItem> inventory
 ) {
 }

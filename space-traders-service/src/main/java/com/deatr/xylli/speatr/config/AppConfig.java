@@ -92,9 +92,9 @@ public class AppConfig {
     }
 
     @Bean
-    public RegisterAgentClient registerAgentClient() {
+    public MetaClient registerAgentClient() {
         WebClient webClient = createSpaceTradersRegisterClient();
-        return setupProxyClient(webClient, RegisterAgentClient.class);
+        return setupProxyClient(webClient, MetaClient.class);
     }
 
     private static <T> T setupProxyClient(WebClient spaceTradersApiClient, Class<T> clazz) {
