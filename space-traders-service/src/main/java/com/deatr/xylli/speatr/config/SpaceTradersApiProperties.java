@@ -17,7 +17,7 @@ public record SpaceTradersApiProperties(
         String baseUrl,
         @Nullable String accessToken,
         @NotBlank String registeredVersion,
-        @NotNull RegistrationProperties registration
+        @Nullable RegistrationProperties registration
 ) {
 
     public String accessToken() {

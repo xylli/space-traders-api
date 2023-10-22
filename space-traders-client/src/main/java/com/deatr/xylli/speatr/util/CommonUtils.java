@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.Random;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -13,6 +14,7 @@ import java.util.stream.Stream;
 @Slf4j
 public final class CommonUtils {
     private static final ObjectMapper MAPPER = new ObjectMapper();
+    public static final Random RANDOM = new Random();
 
     static {
         MAPPER.findAndRegisterModules();
@@ -50,5 +52,10 @@ public final class CommonUtils {
     }
     public static <T> Predicate<T> oneOf(Stream<Predicate<T>> predicates) {
         return predicates.reduce(it -> false, Predicate::or);
+    }
+
+    public static <T> T randomValue(T[] values) {
+        int nextInt = RANDOM.nextInt(values.length);
+        return values[nextInt];
     }
 }
