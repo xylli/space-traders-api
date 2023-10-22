@@ -22,4 +22,17 @@ public record Ship(
         @NotNull ShipCargo cargo,
         @NotNull ShipFuel fuel
 ) {
+
+    public boolean isDocked() {
+        return nav.status() == ShipNav.ShipNavStatus.DOCKED;
+    }
+
+    public boolean isMoving() {
+        return nav.status() == ShipNav.ShipNavStatus.IN_TRANSIT;
+    }
+
+    public boolean isOrbiting() {
+        return nav.status() == ShipNav.ShipNavStatus.IN_ORBIT;
+    }
+
 }

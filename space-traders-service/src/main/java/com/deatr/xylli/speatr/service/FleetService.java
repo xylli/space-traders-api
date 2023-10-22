@@ -23,12 +23,22 @@ public class FleetService {
     public ShipNav navigateTo(Ship ship, Waypoint waypoint) {
         ShipNav nav;
         if (ship.nav().waypointSymbol().equals(waypoint.symbol())) {
+            if (ship.isMoving()) {
+                log.info("Ship is navigating to the specified waypoint");
+            } else if (ship.isOrbiting()) {
+                log.info("Ship is orbiting the specified waypoint");
+            } else {
+                log.info("Ship is docked at the specified waypoint");
+            }
             nav = ship.nav();
-            log.info("Ship already navigated to the specified waypoint");
         } else {
-            var response = fleetClient.navigate(ship.symbol(), new NavigateRequest(waypoint.symbol()));
+            String shipSymbol = ship.symbol();
+            if (ship.isDocked()) {
+                fleetClient.orbit(shipSymbol);
+            }
+            log.info("Navigating ship {} to waypoint {}", shipSymbol, waypoint.symbol());
+            var response = fleetClient.navigate(shipSymbol, new NavigateRequest(waypoint.symbol()));
             nav = response.data().nav();
-            log.info("Navigating ship {} to waypoint {}", ship.symbol(), waypoint.symbol());
         }
         return nav;
     }
