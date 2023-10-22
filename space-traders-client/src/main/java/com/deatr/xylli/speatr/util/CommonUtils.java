@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -30,6 +31,18 @@ public final class CommonUtils {
             log.error("Could not write object", e);
         }
         return "null";
+    }
+
+    /**
+     * Try creating an object instance from the string json value
+     */
+    public static <T> Optional<T> readValue(String jsonValue, Class<T> clazz) {
+        try {
+            return Optional.ofNullable(MAPPER.readValue(jsonValue, clazz));
+        } catch (JsonProcessingException e) {
+            log.error("Could not write object", e);
+        }
+        return Optional.empty();
     }
 
     public static <T, F> Predicate<T> oneOf(F[] filterBy, Function<F, Predicate<T>> predicateMapper) {

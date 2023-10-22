@@ -1,9 +1,9 @@
 package com.deatr.xylli.speatr.components;
 
 import com.deatr.xylli.speatr.client.AgentClient;
-import com.deatr.xylli.speatr.client.MetaClient;
 import com.deatr.xylli.speatr.client.SystemClient;
 import com.deatr.xylli.speatr.config.AppProperties;
+import com.deatr.xylli.speatr.service.ApiMetaService;
 import com.deatr.xylli.speatr.service.ContractService;
 import com.deatr.xylli.speatr.service.FleetService;
 import com.deatr.xylli.speatr.service.SystemService;
@@ -22,7 +22,7 @@ public class StartupListener implements CommandLineRunner {
     private final AppProperties appProperties;
     private final AgentClient agentClient;
     private final SystemClient systemClient;
-    private final MetaClient metaClient;
+    private final ApiMetaService apiMetaService;
     private final FleetService fleetService;
     private final ContractService contractService;
     private final SystemService systemService;
@@ -30,21 +30,11 @@ public class StartupListener implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        var status = metaClient.status();
+        var status = apiMetaService.getStatus();
         if (!status.version().equals(appProperties.spaceTradersApi().registeredVersion())) {
             log.warn("Registered api version does not match current api version");
         }
         log.info("Status Message: {}", status.status());
-
-/*
-        var response = registerAgentClient.registerNewAgent(new RegisterNewAgentRequest(
-                StartingFaction.COSMIC,
-                "XYLLI-2",
-                null
-        ));
-        var token = response.data().token();
-        log.info("token {}", token);
-*/
 
 /*
 		var agentResponse = agentClient.getMyAgent();

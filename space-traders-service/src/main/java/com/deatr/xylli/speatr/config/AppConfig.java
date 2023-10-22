@@ -1,11 +1,13 @@
 package com.deatr.xylli.speatr.config;
 
 import com.deatr.xylli.speatr.client.*;
+import com.deatr.xylli.speatr.security.AuthenticationFilterFunction;
 import com.deatr.xylli.speatr.dto.error.ErrorResponse;
 import com.deatr.xylli.speatr.exception.NoContentException;
 import com.deatr.xylli.speatr.exception.SpaceTradersApiException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -21,16 +23,19 @@ import java.time.Duration;
 import java.util.List;
 
 @Configuration(proxyBeanMethods = false)
+@EnableCaching
 @EnableConfigurationProperties(AppProperties.class)
 @RequiredArgsConstructor
 public class AppConfig {
 
     private final AppProperties appProperties;
+    private final AuthenticationFilterFunction authenticationFilterFunction;
 
     @Bean
     public WebClient spaceTradersAuthenticatedClient() {
         return startBasicSpaceTradersClient()
                 .defaultHeaders(this::setAuthHeaders)
+                .filter(authenticationFilterFunction)
                 .build();
     }
 
@@ -48,8 +53,7 @@ public class AppConfig {
                         HttpStatusCode::is4xxClientError,
                         clientResponse -> clientResponse.bodyToMono(ErrorResponse.class)
                                 .flatMap(errorResponse -> Mono.error(new SpaceTradersApiException(errorResponse)))
-                )
-                ;
+                );
     }
 
     private static boolean isNoContentStatus(HttpStatusCode httpStatusCode) {
@@ -58,7 +62,6 @@ public class AppConfig {
 
     private void setAuthHeaders(HttpHeaders httpHeaders) {
         setDefaultHeaders(httpHeaders);
-        httpHeaders.setBearerAuth(appProperties.spaceTradersApi().accessToken());
     }
 
     private void setDefaultHeaders(HttpHeaders httpHeaders) {
@@ -92,7 +95,7 @@ public class AppConfig {
     }
 
     @Bean
-    public MetaClient registerAgentClient() {
+    public MetaClient metaClient() {
         WebClient webClient = createSpaceTradersRegisterClient();
         return setupProxyClient(webClient, MetaClient.class);
     }

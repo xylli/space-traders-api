@@ -1,6 +1,7 @@
 package com.deatr.xylli.speatr.dto.request;
 
 import com.deatr.xylli.speatr.dto.types.StartingFaction;
+import jakarta.annotation.Nullable;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -9,6 +10,6 @@ import jakarta.validation.constraints.Size;
 public record RegisterNewAgentRequest(
         @NotNull StartingFaction faction,
         @NotNull @Size(min = 3, max = 14) String symbol,
-        String email
+        @Nullable String email
 ) {
 }

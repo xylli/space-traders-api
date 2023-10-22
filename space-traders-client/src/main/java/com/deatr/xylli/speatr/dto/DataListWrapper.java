@@ -23,7 +23,7 @@ public record DataListWrapper<T>(List<T> data, ListMeta meta) {
 
     public T requireFirst() {
         return findFirst()
-                .orElseThrow(ValidationUtils.throwRequiredException());
+                .orElseThrow(ValidationUtils.requiredExceptionSupplier());
     }
 
 }
