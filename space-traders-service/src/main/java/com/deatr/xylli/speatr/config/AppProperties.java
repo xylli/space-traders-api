@@ -7,6 +7,10 @@ import org.springframework.validation.annotation.Validated;
 
 @ConfigurationProperties("app")
 @Validated
-public record AppProperties(@Valid @NotNull SpaceTradersApiProperties spaceTradersApi) {
+public record AppProperties(@Valid @NotNull SpaceTradersApiProperties spaceTradersApi, @Valid @NotNull StartProperties startup) {
 
+
+    public record StartProperties(boolean enabled) {
+
+    }
 }

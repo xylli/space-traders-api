@@ -17,7 +17,7 @@ public record StatusResponse(
         @NotNull Leaderboard leaderboards,
         @NotNull ServerReset serverResets,
         @NotNull List<@NotNull Announcement> announcements,
-        @NotNull List<@NotNull Link> links
+        @NotNull List<@NotNull SpeatrLink> links
         ) {
 
     public record Stats(
@@ -47,7 +47,7 @@ public record StatusResponse(
             @NotBlank String body
     ){}
 
-    public record Link(
+    public record SpeatrLink(
             @NotBlank String name,
             @NotBlank String url
     ){}

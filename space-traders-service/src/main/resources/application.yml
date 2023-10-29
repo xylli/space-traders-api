@@ -1,4 +1,6 @@
 app:
+  startup:
+    enabled: false
   spaceTradersApi:
     baseUrl: https://api.spacetraders.io/v2
     accessToken: ""
