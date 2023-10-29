@@ -1,6 +1,6 @@
 app:
   startup:
-    enabled: false
+    enabled: true
 spring:
   config:
     import: optional:developer/application-developer.yml

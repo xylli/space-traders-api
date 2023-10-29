@@ -6,8 +6,14 @@ public enum WaypointType {
     MOON,
     ORBITAL_STATION,
     JUMP_GATE,
+    @Deprecated
     ASTEROID_FIELD,
     NEBULA,
     DEBRIS_FIELD,
-    GRAVITY_WELL
+    GRAVITY_WELL,
+    ASTEROID,
+    ENGINEERED_ASTEROID,
+    ASTEROID_BASE,
+    ARTIFICIAL_GRAVITY_WELL,
+    FUEL_STATION,
 }

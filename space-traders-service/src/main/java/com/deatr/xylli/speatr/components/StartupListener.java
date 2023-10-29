@@ -31,7 +31,7 @@ public class StartupListener implements CommandLineRunner {
 
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         var status = apiMetaService.getStatus();
         if (!status.version().equals(appProperties.spaceTradersApi().registeredVersion())) {
             log.warn("Registered api version does not match current api version");
