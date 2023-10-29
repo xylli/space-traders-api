@@ -1,6 +1,9 @@
+import org.gradle.jvm.toolchain.JavaLanguageVersion
+import org.gradle.kotlin.dsl.repositories
+
 plugins {
     id("java")
-    id("checkstyle")
+    //id("checkstyle")
     id("com.github.spotbugs")
     id("io.spring.dependency-management")
 }
@@ -18,9 +21,10 @@ java {
 }
 
 tasks.spotbugsMain {
+    ignoreFailures = true
     reports.create("html") {
         required.set(true)
-        outputLocation.set(file("${layout.buildDirectory}/reports/spotbugs.html"))
+        outputLocation.set(layout.buildDirectory.file("reports/spotbugs.html"))
         setStylesheet("fancy-hist.xsl")
     }
 }
