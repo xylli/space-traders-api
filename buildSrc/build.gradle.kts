@@ -1,10 +1,25 @@
+
 plugins {
-    `kotlin-dsl`
+    `java-gradle-plugin`
 }
 
 repositories {
     mavenCentral()
     gradlePluginPortal()
+}
+
+
+gradlePlugin {
+    plugins {
+        create("javaConventions") {
+            id = "com.deatr.xylli.java-conventions"
+            implementationClass = "com.deatr.xylli.JavaConventionPlugin"
+        }
+        create("springCconventions") {
+            id = "com.deatr.xylli.spring-conventions"
+            implementationClass = "com.deatr.xylli.SpringConventionPlugin"
+        }
+    }
 }
 
 dependencies {
