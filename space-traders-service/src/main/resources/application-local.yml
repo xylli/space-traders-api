@@ -7,3 +7,6 @@ spring:
   devtools:
     livereload:
       enabled: false
+  docker:
+    compose:
+      file: compose.yml

@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: "spring-session-1"
+      author: Peter Suepfle
+      changes:
+        - sqlFile:
+            path: "org/springframework/session/jdbc/schema-postgresql.sql"
