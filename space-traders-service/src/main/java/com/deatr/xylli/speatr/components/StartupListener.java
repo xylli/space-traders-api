@@ -2,6 +2,7 @@ package com.deatr.xylli.speatr.components;
 
 import com.deatr.speatr.api.GlobalApi;
 import com.deatr.xylli.speatr.config.SpaceTradersApiProperties;
+import com.deatr.xylli.speatr.global.GlobalService;
 import com.deatr.xylli.speatr.service.FleetService;
 import com.deatr.xylli.speatr.service.SystemService;
 import lombok.RequiredArgsConstructor;
@@ -22,19 +23,13 @@ public class StartupListener implements CommandLineRunner {
     private final FleetService fleetService;
     private final SystemService systemService;
     private final GlobalApi globalApi;
+    private final GlobalService globalService;
 
 
     @Override
     public void run(String... args) {
-        var response = globalApi.getStatus().block();
-        if (response == null) {
-            log.warn("Could not get status from api");
-            return;
-        }
-        if (!response.getVersion().equals(spaceTradersApiProperties.registeredVersion())) {
-            log.warn("Registered api version '{}' does not match current api version '{}'", spaceTradersApiProperties.registeredVersion(), response.getVersion());
-        }
-        log.info("Status Message: {}", response.getStatus());
+        globalService.startupApp();
+
 
 /*
 		var agentResponse = agentClient.getMyAgent();

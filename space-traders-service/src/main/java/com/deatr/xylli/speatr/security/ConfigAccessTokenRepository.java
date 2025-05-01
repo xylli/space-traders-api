@@ -1,10 +1,7 @@
 package com.deatr.xylli.speatr.security;
 
 import com.deatr.xylli.speatr.config.SpaceTradersApiProperties;
-import com.deatr.xylli.speatr.dto.response.RegisterNewAgentResponse;
-import com.deatr.xylli.speatr.exception.SpaceTradersApiException;
 import com.deatr.xylli.speatr.service.ApiMetaService;
-import com.deatr.xylli.speatr.util.ValidationUtils;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +37,7 @@ public class ConfigAccessTokenRepository implements AccessTokenRepository {
     }
 
     private Mono<String> registerNewAgent() {
-        var registrationProperties = spaceTradersApiProperties.registration();
+/*        var registrationProperties = spaceTradersApiProperties.registration();
         try {
             var newAgent = apiMetaService.registerNewAgent(registrationProperties);
             return newAgent.doOnSuccess(it -> {
@@ -49,7 +46,8 @@ public class ConfigAccessTokenRepository implements AccessTokenRepository {
             }).map(RegisterNewAgentResponse::token);
         } catch (SpaceTradersApiException e) {
             throw ValidationUtils.configurationExceptionSupplier("Error while registering agent", e).get();
-        }
+        }*/
+        return Mono.empty();
     }
 
     @Override

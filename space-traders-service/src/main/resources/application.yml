@@ -4,9 +4,11 @@ app:
   space-traders-api:
     baseUrl: https://api.spacetraders.io/v2
     accountToken: ""
-    registeredVersion: "v2.3.0"
 spring:
   jpa:
     open-in-view: false
   main:
     web-application-type: none
+  session:
+    jdbc:
+      initialize-schema: never
