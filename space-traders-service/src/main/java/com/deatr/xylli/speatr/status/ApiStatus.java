@@ -1,4 +1,4 @@
-package com.deatr.xylli.speatr.global;
+package com.deatr.xylli.speatr.status;
 
 import com.deatr.xylli.speatr.infra.BaseEntity;
 import com.deatr.xylli.speatr.infra.TrackedEntity;
@@ -6,13 +6,11 @@ import com.deatr.xylli.speatr.infra.TrackedEntityListener;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@NoArgsConstructor
 @Getter
 @Setter
 @Entity

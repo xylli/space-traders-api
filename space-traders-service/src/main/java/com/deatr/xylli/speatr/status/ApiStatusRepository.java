@@ -1,4 +1,4 @@
-package com.deatr.xylli.speatr.global;
+package com.deatr.xylli.speatr.status;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

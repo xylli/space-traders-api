@@ -13,16 +13,24 @@ public final class ValidationUtils {
     public static Supplier<ResponseStatusException> requiredExceptionSupplier() {
         return requiredExceptionSupplier("Required element not found");
     }
-    public static Supplier<ResponseStatusException> requiredExceptionSupplier(String message) {
-        return () -> new ResponseStatusException(HttpStatus.NOT_FOUND, message);
+    public static Supplier<ResponseStatusException> requiredExceptionSupplier(String message, String... args) {
+        return () -> notFoundException(message, args);
     }
 
-    public static Supplier<ResponseStatusException> configurationExceptionSupplier(String message) {
-        return () -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, message);
+    public static ResponseStatusException internalServerErrorException(String message, String... args) {
+        return responseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, message, args);
     }
 
-    public static Supplier<ResponseStatusException> configurationExceptionSupplier(String message, Throwable cause) {
-        return () -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, message, cause);
+    public static ResponseStatusException badRequestException(String message, String... args) {
+        return responseStatusException(HttpStatus.BAD_REQUEST, message, args);
+    }
+
+    public static ResponseStatusException notFoundException(String message, String... args) {
+        return responseStatusException(HttpStatus.NOT_FOUND, message, args);
+    }
+
+    private static ResponseStatusException responseStatusException(HttpStatus status, String message, Object[] args) {
+        return new ResponseStatusException(status, String.format(message, args));
     }
 
 }

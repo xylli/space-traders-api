@@ -11,3 +11,14 @@ databaseChangeLog:
       changes:
         - sqlFile:
             path: "db/changelog//2025/001-status.sql"
+  - changeSet:
+      id: "2025-2"
+      author: Peter Suepfle
+      changes:
+        - sqlFile:
+            dbms: "postgresql"
+            path: "db/changelog//2025/002-agent.sql"
+            splitStatements: false
+            stripComments: true
+
+

@@ -23,7 +23,9 @@ class SpaceTradersApiConfig {
     @Bean
     ApiClient spaceTradersApiClient() {
         var webClient = startBasicSpaceTradersClient().build();
-        return new ApiClient(webClient);
+        var apiClient = new ApiClient(webClient);
+        apiClient.setBearerToken(properties.accountToken());
+        return apiClient;
     }
 
     @Bean

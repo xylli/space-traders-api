@@ -21,14 +21,14 @@ public class ConfigAccessTokenRepository implements AccessTokenRepository {
     private CachedAccessToken accessToken = CachedAccessToken.empty();
     private LocalDate lastServerResetDate = LocalDate.MIN;
 
-    @PostConstruct
+/*    @PostConstruct
     public void init() {
         String token = spaceTradersApiProperties.accountToken();
         if (token != null) {
             accessToken = new CachedAccessToken(token);
         }
         lastServerResetDate = apiMetaService.getStatus().resetDate();
-    }
+    }*/
 
     private boolean accessTokenIsExpired() {
         var tokenResetDate = accessToken.expiration();

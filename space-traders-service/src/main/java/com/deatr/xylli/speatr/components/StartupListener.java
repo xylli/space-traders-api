@@ -1,15 +1,20 @@
 package com.deatr.xylli.speatr.components;
 
-import com.deatr.speatr.api.GlobalApi;
+import com.deatr.speatr.model.FactionSymbol;
+import com.deatr.xylli.speatr.agent.AgentCreationRequest;
+import com.deatr.xylli.speatr.agent.AgentService;
 import com.deatr.xylli.speatr.config.SpaceTradersApiProperties;
-import com.deatr.xylli.speatr.global.GlobalService;
 import com.deatr.xylli.speatr.service.FleetService;
 import com.deatr.xylli.speatr.service.SystemService;
+import com.deatr.xylli.speatr.status.StatusService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
+import java.util.UUID;
 
 import static com.deatr.xylli.speatr.util.CommonUtils.prettyPrint;
 
@@ -22,13 +27,17 @@ public class StartupListener implements CommandLineRunner {
     private final SpaceTradersApiProperties spaceTradersApiProperties;
     private final FleetService fleetService;
     private final SystemService systemService;
-    private final GlobalApi globalApi;
-    private final GlobalService globalService;
+    private final StatusService statusService;
+    private final AgentService agentService;
 
 
     @Override
     public void run(String... args) {
-        globalService.startupApp();
+        statusService.updateAppStatus();
+
+        var email = Optional.ofNullable(spaceTradersApiProperties.registration()).map(SpaceTradersApiProperties.RegistrationProperties::email).orElse(null);
+        var symbol = UUID.randomUUID().toString().substring(0, 10);
+        agentService.createAgent(new AgentCreationRequest(FactionSymbol.QUANTUM, symbol, email));
 
 
 /*

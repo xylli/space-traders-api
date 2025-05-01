@@ -1,4 +1,4 @@
-package com.deatr.xylli.speatr.global;
+package com.deatr.xylli.speatr.status;
 
 import com.deatr.speatr.api.GlobalApi;
 import com.deatr.speatr.model.GetStatus200Response;
@@ -14,12 +14,12 @@ import java.time.format.DateTimeFormatter;
 @Slf4j
 @DataService
 @RequiredArgsConstructor
-public class GlobalService {
+public class StatusService {
     private final GlobalApi globalApi;
     private final ApiStatusRepository apiStatusRepository;
 
     @ModifyingMethod
-    public void startupApp() {
+    public void updateAppStatus() {
         var response = globalApi.getStatus().block();
         if (response == null) {
             log.warn("Could not get status from api");
