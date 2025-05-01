@@ -26,7 +26,7 @@ public class ConfigAccessTokenRepository implements AccessTokenRepository {
 
     @PostConstruct
     public void init() {
-        String token = appProperties.spaceTradersApi().accessToken();
+        String token = appProperties.spaceTradersApi().accountToken();
         if (token != null) {
             accessToken = new CachedAccessToken(token);
         }

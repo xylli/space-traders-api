@@ -3,7 +3,7 @@ app:
     enabled: false
   spaceTradersApi:
     baseUrl: https://api.spacetraders.io/v2
-    accessToken: ""
+    accountToken: ""
     registeredVersion: "v2"
 spring:
   jpa:
