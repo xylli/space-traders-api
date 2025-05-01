@@ -24,11 +24,10 @@ import java.util.List;
 
 @Configuration(proxyBeanMethods = false)
 @EnableCaching
-@EnableConfigurationProperties(AppProperties.class)
 @RequiredArgsConstructor
 public class AppConfig {
 
-    private final AppProperties appProperties;
+    private final SpaceTradersApiProperties spaceTradersApiProperties;
     private final AuthenticationFilterFunction authenticationFilterFunction;
 
     @Bean
@@ -47,7 +46,7 @@ public class AppConfig {
 
     private WebClient.Builder startBasicSpaceTradersClient() {
         return WebClient.builder()
-                .baseUrl(appProperties.spaceTradersApi().baseUrl())
+                .baseUrl(spaceTradersApiProperties.baseUrl())
                 .defaultStatusHandler(AppConfig::isNoContentStatus, clientResponse -> Mono.error(new NoContentException()))
                 .defaultStatusHandler(
                         HttpStatusCode::is4xxClientError,

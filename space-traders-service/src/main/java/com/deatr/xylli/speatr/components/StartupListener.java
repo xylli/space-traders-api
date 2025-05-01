@@ -1,10 +1,7 @@
 package com.deatr.xylli.speatr.components;
 
-import com.deatr.xylli.speatr.client.AgentClient;
-import com.deatr.xylli.speatr.client.SystemClient;
-import com.deatr.xylli.speatr.config.AppProperties;
-import com.deatr.xylli.speatr.service.ApiMetaService;
-import com.deatr.xylli.speatr.service.ContractService;
+import com.deatr.speatr.api.GlobalApi;
+import com.deatr.xylli.speatr.config.SpaceTradersApiProperties;
 import com.deatr.xylli.speatr.service.FleetService;
 import com.deatr.xylli.speatr.service.SystemService;
 import lombok.RequiredArgsConstructor;
@@ -21,22 +18,23 @@ import static com.deatr.xylli.speatr.util.CommonUtils.prettyPrint;
 @RequiredArgsConstructor
 public class StartupListener implements CommandLineRunner {
 
-    private final AppProperties appProperties;
-    private final AgentClient agentClient;
-    private final SystemClient systemClient;
-    private final ApiMetaService apiMetaService;
+    private final SpaceTradersApiProperties spaceTradersApiProperties;
     private final FleetService fleetService;
-    private final ContractService contractService;
     private final SystemService systemService;
+    private final GlobalApi globalApi;
 
 
     @Override
     public void run(String... args) {
-        var status = apiMetaService.getStatus();
-        if (!status.version().equals(appProperties.spaceTradersApi().registeredVersion())) {
-            log.warn("Registered api version does not match current api version");
+        var response = globalApi.getStatus().block();
+        if (response == null) {
+            log.warn("Could not get status from api");
+            return;
         }
-        log.info("Status Message: {}", status.status());
+        if (!response.getVersion().equals(spaceTradersApiProperties.registeredVersion())) {
+            log.warn("Registered api version '{}' does not match current api version '{}'", spaceTradersApiProperties.registeredVersion(), response.getVersion());
+        }
+        log.info("Status Message: {}", response.getStatus());
 
 /*
 		var agentResponse = agentClient.getMyAgent();

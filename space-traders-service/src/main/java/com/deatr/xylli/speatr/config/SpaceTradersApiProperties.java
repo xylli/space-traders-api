@@ -6,8 +6,10 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Slf4j
+@ConfigurationProperties("app.space-traders-api")
 public record SpaceTradersApiProperties(
         String baseUrl,
         @Nullable String accountToken,

@@ -1,6 +1,6 @@
 package com.deatr.xylli.speatr.security;
 
-import com.deatr.xylli.speatr.config.AppProperties;
+import com.deatr.xylli.speatr.config.SpaceTradersApiProperties;
 import com.deatr.xylli.speatr.dto.response.RegisterNewAgentResponse;
 import com.deatr.xylli.speatr.exception.SpaceTradersApiException;
 import com.deatr.xylli.speatr.service.ApiMetaService;
@@ -19,14 +19,14 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 public class ConfigAccessTokenRepository implements AccessTokenRepository {
 
-    private final AppProperties appProperties;
+    private final SpaceTradersApiProperties spaceTradersApiProperties;
     private final ApiMetaService apiMetaService;
     private CachedAccessToken accessToken = CachedAccessToken.empty();
-    private  LocalDate lastServerResetDate = LocalDate.MIN;
+    private LocalDate lastServerResetDate = LocalDate.MIN;
 
     @PostConstruct
     public void init() {
-        String token = appProperties.spaceTradersApi().accountToken();
+        String token = spaceTradersApiProperties.accountToken();
         if (token != null) {
             accessToken = new CachedAccessToken(token);
         }
@@ -40,7 +40,7 @@ public class ConfigAccessTokenRepository implements AccessTokenRepository {
     }
 
     private Mono<String> registerNewAgent() {
-        var registrationProperties = appProperties.spaceTradersApi().registration();
+        var registrationProperties = spaceTradersApiProperties.registration();
         try {
             var newAgent = apiMetaService.registerNewAgent(registrationProperties);
             return newAgent.doOnSuccess(it -> {
