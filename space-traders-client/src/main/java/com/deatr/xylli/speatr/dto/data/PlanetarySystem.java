@@ -10,7 +10,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 @Valid
-public record System(
+public record PlanetarySystem(
         @NotBlank
         String symbol,
         @NotBlank

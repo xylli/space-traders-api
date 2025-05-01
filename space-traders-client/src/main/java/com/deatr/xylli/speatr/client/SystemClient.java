@@ -3,7 +3,7 @@ package com.deatr.xylli.speatr.client;
 import com.deatr.xylli.speatr.dto.DataListWrapper;
 import com.deatr.xylli.speatr.dto.DataWrapper;
 import com.deatr.xylli.speatr.dto.data.*;
-import com.deatr.xylli.speatr.dto.data.System;
+import com.deatr.xylli.speatr.dto.data.PlanetarySystem;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
@@ -19,13 +19,13 @@ import static com.deatr.xylli.speatr.util.ApiConstants.LIST_REQUEST_LIMIT;
 public interface SystemClient {
 
     @GetExchange("/systems")
-    DataListWrapper<System> getSystems(
+    DataListWrapper<PlanetarySystem> getSystems(
             @RequestParam @Positive @Max(LIST_REQUEST_LIMIT) int limit,
             @RequestParam @Positive int page
     );
 
     @GetExchange("/systems/{systemSymbol}")
-    DataWrapper<System> getSystem(
+    DataWrapper<PlanetarySystem> getSystem(
             @PathVariable
             @NotBlank String systemSymbol
     );

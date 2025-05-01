@@ -1,15 +1,17 @@
 package com.deatr.xylli.speatr.security;
 
 import com.deatr.xylli.speatr.config.AppProperties;
+import com.deatr.xylli.speatr.dto.response.RegisterNewAgentResponse;
 import com.deatr.xylli.speatr.exception.SpaceTradersApiException;
 import com.deatr.xylli.speatr.service.ApiMetaService;
 import com.deatr.xylli.speatr.util.ValidationUtils;
-import jakarta.annotation.Nullable;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
+
+import java.time.LocalDate;
 
 
 @Repository("config")
@@ -19,31 +21,32 @@ public class ConfigAccessTokenRepository implements AccessTokenRepository {
 
     private final AppProperties appProperties;
     private final ApiMetaService apiMetaService;
-    @Nullable
-    private String accessToken = null;
+    private CachedAccessToken accessToken = CachedAccessToken.empty();
+    private  LocalDate lastServerResetDate = LocalDate.MIN;
 
     @PostConstruct
     public void init() {
-        var token = appProperties.spaceTradersApi().accessToken();
-        if (token == null || accessTokenIsExpired()) {
-            token = registerNewAgent();
+        String token = appProperties.spaceTradersApi().accessToken();
+        if (token != null) {
+            accessToken = new CachedAccessToken(token);
         }
-        this.accessToken = token;
+        lastServerResetDate = apiMetaService.getStatus().resetDate();
     }
 
     private boolean accessTokenIsExpired() {
-        var tokenResetDate = appProperties.spaceTradersApi().getAccessTokenResetDate()
-                .orElseThrow(ValidationUtils.configurationExceptionSupplier("Could not resolve the reset date for the configured access token"));
-        var lastServerResetDate = apiMetaService.getStatus().resetDate();
+        var tokenResetDate = accessToken.expiration();
+
         return tokenResetDate.isBefore(lastServerResetDate);
     }
 
-    private String registerNewAgent() {
+    private Mono<String> registerNewAgent() {
         var registrationProperties = appProperties.spaceTradersApi().registration();
         try {
             var newAgent = apiMetaService.registerNewAgent(registrationProperties);
-            log.info("Registered new agent '{}' with access token '{}'", newAgent.agent().accountId(), newAgent.token());
-            return newAgent.token();
+            return newAgent.doOnSuccess(it -> {
+                accessToken = new CachedAccessToken(it.token());
+                log.info("Registered new agent '{}' with access token '{}'", it.agent().accountId(), it.token());
+            }).map(RegisterNewAgentResponse::token);
         } catch (SpaceTradersApiException e) {
             throw ValidationUtils.configurationExceptionSupplier("Error while registering agent", e).get();
         }
@@ -51,6 +54,9 @@ public class ConfigAccessTokenRepository implements AccessTokenRepository {
 
     @Override
     public Mono<String> loadAccessToken() {
-        return Mono.justOrEmpty(accessToken);
+        if (accessToken.isEmpty() || accessTokenIsExpired()) {
+            return registerNewAgent();
+        }
+        return Mono.justOrEmpty(accessToken.token());
     }
 }

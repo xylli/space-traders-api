@@ -9,12 +9,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.service.annotation.GetExchange;
 import org.springframework.web.service.annotation.PostExchange;
+import reactor.core.publisher.Mono;
 
 @Validated
 public interface MetaClient {
 
     @PostExchange("/register")
-    DataWrapper<RegisterNewAgentResponse> registerNewAgent(
+    Mono<DataWrapper<RegisterNewAgentResponse>> registerNewAgent(
             @RequestBody @NotNull RegisterNewAgentRequest body
     );
 
