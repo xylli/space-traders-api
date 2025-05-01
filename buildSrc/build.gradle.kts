@@ -7,8 +7,12 @@ repositories {
     gradlePluginPortal()
 }
 
+val spotBugsVersion = "6.1.10"
+val springBootVersion = "3.4.5"
+val springBootDependencyManagementVersion = "1.1.7"
+
 dependencies {
-    implementation("com.github.spotbugs.snom:spotbugs-gradle-plugin:6.0.0-beta.4")
-    implementation("org.springframework.boot:spring-boot-gradle-plugin:3.1.4")
-    implementation("io.spring.gradle:dependency-management-plugin:1.1.3")
+    implementation("com.github.spotbugs.snom:spotbugs-gradle-plugin:$spotBugsVersion")
+    implementation("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
+    implementation("io.spring.gradle:dependency-management-plugin:$springBootDependencyManagementVersion")
 }

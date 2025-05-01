@@ -101,9 +101,10 @@ public class AppConfig {
     }
 
     private static <T> T setupProxyClient(WebClient spaceTradersApiClient, Class<T> clazz) {
-        return HttpServiceProxyFactory.builder()
-                .clientAdapter(WebClientAdapter.forClient(spaceTradersApiClient))
-                .blockTimeout(Duration.ofSeconds(30))
+        var adapter = WebClientAdapter.create(spaceTradersApiClient);
+        adapter.setBlockTimeout(Duration.ofSeconds(30));
+        return HttpServiceProxyFactory
+                .builderFor(adapter)
                 .build()
                 .createClient(clazz);
     }
